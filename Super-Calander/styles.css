@@ -1,0 +1,93 @@
+body {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: flex-end; /* Push children to the bottom */
+    align-items: center; /* Center items horizontally */
+    font-family: Arial, sans-serif;
+    background-color: #5a2842; /* Set background to a dark color */
+    margin: 0;
+    padding: 20px;
+    height: 100vh; /* Full height of the viewport */
+}
+
+.calendar {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(147, 128, 128, 0.2), 0 0 25px rgba(255, 20, 147, 0.5); /* Glowing shadow effect in pink */
+}
+
+header {
+    background: #450b3e;
+    color: rgb(255, 114, 210);
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 0 10px;
+}
+
+.month {
+    margin: 10px 0;
+}
+
+.days {
+    display: flex;
+    justify-content: space-between;
+    background: #f0f0f0;
+}
+
+.day {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background: #e9ecef;
+    font-weight: bold;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.date {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background: #ffffff;
+    transition: background 0.3s;
+}
+
+.date:hover {
+    background: #ffe8e8; /* Light pink on hover */
+}
+
+.highlight {
+    background-color: #ae4087; /* Highlight color */
+    color: rgb(255, 255, 255); /* Text color for highlighted day */
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 600px) {
+    .calendar {
+        width: 100%; /* Full width on small screens */
+    }
+
+    .day, .date {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .nav {
+        font-size: 20px; /* Smaller font size for arrows */
+    }
+}

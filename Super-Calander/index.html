@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Online Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calendar">
+        <header>
+            <div class="nav" id="prev-month" aria-label="Previous month">&#9664;</div> <!-- Left arrow -->
+            <div class="month" id="month-name">January 2025</div>
+            <div class="nav" id="next-month" aria-label="Next month">&#9654;</div> <!-- Right arrow -->
+        </header>
+        
+        <div class="days">
+            <div class="day">Sun</div>
+            <div class="day">Mon</div>
+            <div class="day">Tue</div>
+            <div class="day">Wed</div>
+            <div class="day">Thu</div>
+            <div class="day">Fri</div>
+            <div class="day">Sat</div>
+        </div>
+        <div class="dates" id="dates">
+            <!-- Dates will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date(); // Start with the current date
+
+function updateCalendar() {
+    const monthName = document.getElementById('month-name');
+    const datesContainer = document.getElementById('dates');
+
+    // Update the month name
+    monthName.textContent = currentDate.toLocaleString('default', { month: 'long' }) + ' ' + currentDate.getFullYear();
+
+    // Clear previous dates
+    datesContainer.innerHTML = '';
+
+    // Get the first day of the month
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    
+    // Fill in the dates
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'date';
+        dateDiv.textContent = i;
+        dateDiv.dataset.month = currentDate.getMonth() + 1; // Store month (1-12)
+        dateDiv.dataset.year = currentDate.getFullYear(); // Store year
+        datesContainer.appendChild(dateDiv);
+    }
+
+    highlightCurrentDay(); // Highlight the current day
+}
+
+function highlightCurrentDay() {
+    const today = new Date();
+    const currentDay = today.getDate();
+    const currentMonth = today.getMonth() + 1; // Months are zero-indexed
+    const currentYear = today.getFullYear();
+
+    const dateElements = document.querySelectorAll('.date');
+
+    dateElements.forEach(dateElement => {
+        const date = parseInt(dateElement.textContent, 10);
+        const month = parseInt(dateElement.dataset.month, 10);
+        const year = parseInt(dateElement.dataset.year, 10);
+
+        if (date === currentDay && month === currentMonth && year === currentYear) {
+            dateElement.classList.add('highlight'); // Add highlight class
+        }
+    });
+}
+
+document.getElementById('prev-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    updateCalendar();
+});
+
+document.getElementById('next-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateCalendar();
+});
+
+// Initial calendar render
+updateCalendar();
+    </script>
+</body>
+</html>
